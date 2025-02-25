@@ -16,7 +16,7 @@
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.3-cfea4f7c-v1\\esp32c3\\qio_qspi\\include",
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.1.1\\cores\\esp32",
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.1.1\\variants\\esp32c3",
-                "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.1.1\\libraries\\BLE\\src",
+                "C:\\Users\\Dmitry\\Documents\\Arduino\\libraries\\NimBLE-Arduino\\src",
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2405\\riscv32-esp-elf\\include\\c++\\13.2.0",
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2405\\riscv32-esp-elf\\include\\c++\\13.2.0\\riscv32-esp-elf",
                 "C:\\Users\\Dmitry\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2405\\riscv32-esp-elf\\include\\c++\\13.2.0\\backward",
