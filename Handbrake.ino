@@ -18,7 +18,7 @@ void loop() {}
 #define DESCRETE_BRAKE_MAX 2300
 #define DESCRETE_BTN BUTTON_Z
 #define DESCRETE_TRIGGER BUTTON_X
-#define DEBUG 0
+#define DEBUG 1
 #define READING_DELAY 15
 
 
@@ -26,7 +26,12 @@ int maxMilliVolts = 2500;
 int8_t lastY = 0;
 bool hasPassedThreshold = false;
 
+#if DEBUG == 1
+#include "src/SerialGamepad/SerialGamepad.h";
+SerialGamepad Gamepad = SerialGamepad();
+#else
 USBHIDGamepad Gamepad = USBHIDGamepad();
+#endif
 
 void setup() {
   Gamepad.begin();
@@ -45,10 +50,6 @@ void loop() {
   }
   int8_t yAxisValue = (int8_t) map(potValue, 0, maxMilliVolts, 127, -127);
 
-  #if DEBUG == 1
-  Serial.println("Pot value" + String(potValue));
-  Serial.println("Y value" + String(yAxisValue));
-  #else
 
   Gamepad.leftStick((int8_t) 10, yAxisValue);
 
@@ -60,7 +61,6 @@ void loop() {
       hasPassedThreshold = false;
       Gamepad.releaseButton(DESCRETE_TRIGGER);
   }
-  #endif
 
   delay(READING_DELAY);
 }

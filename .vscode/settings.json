@@ -18,7 +18,16 @@
         "chrono": "cpp",
         "memory": "cpp",
         "random": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "exception": "cpp",
+        "memory_resource": "cpp",
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "stop_token": "cpp",
+        "streambuf": "cpp"
     },
     "arduino.disableIntelliSenseAutoGen": true
 }
