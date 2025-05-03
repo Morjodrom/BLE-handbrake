@@ -1,7 +1,8 @@
 {
     "sketch": "Handbrake.ino",
-    "configuration": "JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none,EraseFlash=none",
-    "board": "esp32:esp32:esp32c3",
-    "output": "../Output",
-    "port": "COM7"
+    "configuration": "CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,PartitionScheme=no_ota,DebugLevel=none,EraseFlash=none",
+    "board": "esp32:esp32:lolin_s2_mini",
+    "output": "build",
+    "port": "COM14",
+    "programmer": "esptool"
 }
