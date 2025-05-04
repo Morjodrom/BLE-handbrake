@@ -1,3 +1,5 @@
+#include <ArduinoTrace.h>
+
 #ifndef ARDUINO_USB_MODE
 #error This ESP32 SoC has no Native USB interface
 #elif ARDUINO_USB_MODE == 1
@@ -7,18 +9,15 @@ void loop() {}
 #else
 
 #include <Arduino.h>
-#include "USB.h"
-#include "USBHIDGamepad.h"
+#include <USB.h>
 
 // Define the analog pin connected to the potentiometer
 #define POTENTIOMETER_PIN A1
 
-// Define the threshold values for the button press
-#define DESCRETE_BRAKE_MIN 300
-#define DESCRETE_BRAKE_MAX 2300
-#define DESCRETE_BTN BUTTON_Z
-#define DESCRETE_TRIGGER BUTTON_X
+
 #define DEBUG 1
+#define ARDUINOTRACE_ENABLE DEBUG
+
 #define READING_DELAY 15
 
 
@@ -30,37 +29,36 @@ bool hasPassedThreshold = false;
 #include "src/SerialGamepad/SerialGamepad.h";
 SerialGamepad Gamepad = SerialGamepad();
 #else
+#include "USBHIDGamepad.h"
 USBHIDGamepad Gamepad = USBHIDGamepad();
 #endif
 
 void setup() {
-  Gamepad.begin();
-  USB.begin();
-
   #if DEBUG == 1
-  Serial.begin();
-  Serial.println("\n==================\nUSB Gamepad Testing\n==================\n");
+  Serial.begin(9600);
+  Serial.println("Starting Serial");
+  #endif
+
+  Gamepad.begin();
+  #if DEBUG == 0
+  USB.begin();
   #endif
 }
 
+unsigned int counter = 0;
 void loop() {
+  DUMP("LOOP" + String(counter++));
   int potValue = analogReadMilliVolts(POTENTIOMETER_PIN);
+
+  DUMP(potValue);
   if(potValue > maxMilliVolts) {
     maxMilliVolts = potValue;
   }
   int8_t yAxisValue = (int8_t) map(potValue, 0, maxMilliVolts, 127, -127);
 
+  DUMP(yAxisValue);
 
-  Gamepad.leftStick((int8_t) 10, yAxisValue);
-
-  if (potValue <= DESCRETE_BRAKE_MIN && !hasPassedThreshold) {
-      Gamepad.pressButton(DESCRETE_TRIGGER);
-      hasPassedThreshold = true;
-  } else if (potValue > DESCRETE_BRAKE_MIN && hasPassedThreshold) {
-      Gamepad.pressButton(DESCRETE_TRIGGER);
-      hasPassedThreshold = false;
-      Gamepad.releaseButton(DESCRETE_TRIGGER);
-  }
+  Gamepad.leftStick((int8_t) 0, yAxisValue);
 
   delay(READING_DELAY);
 }

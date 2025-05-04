@@ -1,7 +1,25 @@
 {
-    "version": 1,
-    "author": "Anonymous maker",
-    "editor": "wokwi",
-    "parts": [ { "id": "esp", "type": "board-esp32-s2-devkitm-1" } ],
-    "connections": [ [ "esp:TX", "$serialMonitor:RX", "" ], [ "esp:RX", "$serialMonitor:TX", "" ] ]
-  }
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-s2-devkitm-1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot1",
+      "top": 72.2,
+      "left": -250.6,
+      "attrs": { "travelLength": "30" }
+    },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 163.2, "left": -39, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pot1:VCC", "esp:3V3", "red", [ "h0", "v-67.2" ] ],
+    [ "pot1:GND", "gnd1:GND", "black", [ "v0", "h14.8", "v28.8" ] ],
+    [ "pot1:SIG", "esp:2", "green", [ "h-38.4", "v-10.4" ] ]
+  ],
+  "serialMonitor": { "display": "always", "newline": "lf", "convertEol": false },
+  "dependencies": {}
+}

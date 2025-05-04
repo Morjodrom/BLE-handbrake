@@ -17,7 +17,8 @@ class SerialGamepad: public USBHIDGamepad
 
     public:
         SerialGamepad(void);
-        void begin(void);
+        void begin(unsigned long baud = 9600);
+
         void end(void);
 
         bool leftStick(int8_t x, int8_t y);
@@ -33,7 +34,7 @@ class SerialGamepad: public USBHIDGamepad
 
     protected: 
 
-        void print(const char* caption, int value);
-        void print(const char* captoin, int value, int anotherValue);
+        bool print(const char* caption, int value);
+        bool print(const char* captoin, int value, int anotherValue);
 };
 #endif
