@@ -22,7 +22,7 @@ void loop() {}
 
 
 int maxMilliVolts = 2500;
-int8_t lastY = 0;
+int8_t currentY = 0;
 bool hasPassedThreshold = false;
 
 #if DEBUG == 1
@@ -47,18 +47,23 @@ void setup() {
 
 unsigned int counter = 0;
 void loop() {
-  DUMP("LOOP" + String(counter++));
   int potValue = analogReadMilliVolts(POTENTIOMETER_PIN);
 
-  DUMP(potValue);
+
   if(potValue > maxMilliVolts) {
     maxMilliVolts = potValue;
   }
   int8_t yAxisValue = (int8_t) map(potValue, 0, maxMilliVolts, 127, -127);
 
-  DUMP(yAxisValue);
+  if(yAxisValue != currentY) {
+    DUMP(potValue);
+    DUMP(yAxisValue);
 
-  Gamepad.leftStick((int8_t) 0, yAxisValue);
+    currentY = yAxisValue;
+    
+    Gamepad.leftStick((int8_t) 0, yAxisValue);
+  }
+
 
   delay(READING_DELAY);
 }
