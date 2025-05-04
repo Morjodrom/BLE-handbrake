@@ -18,12 +18,14 @@ void loop() {}
 #define DEBUG 1
 #define ARDUINOTRACE_ENABLE DEBUG
 
-#define READING_DELAY 15
+#define POLLING_INTERVAL_MS 15
+uint32_t lastTime = 0;
 
 
 int maxMilliVolts = 2500;
 int8_t currentY = 0;
 bool hasPassedThreshold = false;
+
 
 #if DEBUG == 1
 #include "src/SerialGamepad/SerialGamepad.h";
@@ -45,31 +47,33 @@ void setup() {
   #endif
 }
 
-unsigned int counter = 0;
 void loop() {
+  uint32_t currentTime = millis();
+
+  if(currentTime - lastTime > POLLING_INTERVAL_MS) {
+    pollInputs();
+  }
+}
+
+void pollInputs()
+{
   int potValue = analogReadMilliVolts(POTENTIOMETER_PIN);
 
-
-  if(potValue > maxMilliVolts) {
+  if (potValue > maxMilliVolts)
+  {
     maxMilliVolts = potValue;
   }
-  int8_t yAxisValue = (int8_t) map(potValue, 0, maxMilliVolts, 127, -127);
+  int8_t yAxisValue = (int8_t)map(potValue, 0, maxMilliVolts, 127, -127);
 
-  if(yAxisValue != currentY) {
+  if (yAxisValue != currentY)
+  {
     DUMP(potValue);
     DUMP(yAxisValue);
 
     currentY = yAxisValue;
-    
-    Gamepad.leftStick((int8_t) 0, yAxisValue);
+
+    Gamepad.leftStick((int8_t)0, yAxisValue);
   }
-
-
-  delay(READING_DELAY);
 }
-
-
-
-
 
 #endif /* ARDUINO_USB_MODE */
